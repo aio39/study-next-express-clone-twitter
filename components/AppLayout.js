@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Link from 'next/link';
-import { Menu } from 'antd';
+import { Menu, Input, Row, Col } from 'antd';
 
 const AppLayout = ({ children }) => {
   return (
@@ -15,6 +15,12 @@ const AppLayout = ({ children }) => {
           </Link>
         </Menu.Item>
         <Menu.Item>
+          <Input.Search
+            enterButton
+            style={{ verticalAlign: 'middle' }}
+          ></Input.Search>
+        </Menu.Item>
+        <Menu.Item>
           <Link href="/profile">
             <a>프로필</a>
           </Link>
@@ -26,7 +32,20 @@ const AppLayout = ({ children }) => {
           </Link>
         </Menu.Item>
       </Menu>
-      {children}
+      <Row gutter={8}>
+        {/*  합을 24로 생각 antd grid 참고 */}
+        <Col xs={24} md={6}>
+          왼쪽 메뉴
+        </Col>
+        <Col xs={24} md={12}>
+          {children}
+        </Col>
+        <Col xs={24} md={6}>
+          <a href="http://aio392.com" target="_blank" rel="noopener noreferrer">
+            Made by aio
+          </a>
+        </Col>
+      </Row>
     </div>
   );
 };
