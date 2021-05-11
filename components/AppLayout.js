@@ -18,7 +18,6 @@ const AppLayout = ({ children }) => {
       <Menu mode="horizontal">
         {/* NOTE  a 태그가 아니라 Link에 href */}
         <Menu.Item>
-          {' '}
           <Link href="/">
             <a>노드버드</a>
           </Link>
@@ -35,7 +34,6 @@ const AppLayout = ({ children }) => {
           </Link>
         </Menu.Item>
         <Menu.Item>
-          {' '}
           <Link href="/signup">
             <a>회원가입</a>
           </Link>

@@ -4,7 +4,8 @@ import Form from 'antd/lib/form/Form';
 import Link from 'next/link';
 import React, { useCallback, useMemo, useState } from 'react';
 import styled from 'styled-components';
-
+import PropTypes from 'prop-types';
+import useInput from '../hooks/useInput';
 // useCallback은 함수를 캐싱한다.
 // useMemo는 값을 캐싱해서 함수가 재호출되도 같은 값을로 취급해준다.
 
@@ -18,8 +19,8 @@ const FormWrapper = styled(Form)`
 `;
 
 const LoginForm = ({ setIsLoggedIn }) => {
-  const [id, setId] = useState('');
-  const [password, setPassword] = useState('');
+  const [id, onChangeId] = useInput('');
+  const [password, onChangePassword] = useInput('');
 
   // NOTE  styled components를  사용하지 않는다면 useMemo로 값을 캐싱 하면 된다.
   //   const style = useMemo(
@@ -28,13 +29,6 @@ const LoginForm = ({ setIsLoggedIn }) => {
   //     }),
   //     []
   //   );
-
-  const onChangeId = useCallback((e) => {
-    setId(e.target.value);
-  }, []);
-  const onChangePassword = useCallback((e) => {
-    setPassword(e.target.value);
-  }, []);
 
   const onSubmitForm = useCallback(() => {
     // NOTE e.preventDefault() antd에 기본으로 적용되어있음.
