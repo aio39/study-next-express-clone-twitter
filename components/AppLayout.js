@@ -5,6 +5,7 @@ import { Menu, Input, Row, Col } from 'antd';
 import UserProfile from './UserProfile';
 import LoginForm from './LoginForm';
 import styled from 'styled-components';
+import { useSelector } from 'react-redux';
 
 // NOTE 재랜더링 방지를 위한 css
 const SearchInput = styled(Input.Search)`
@@ -12,7 +13,7 @@ const SearchInput = styled(Input.Search)`
 `;
 
 const AppLayout = ({ children }) => {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const { isLoggedIn } = useSelector((state) => state.user);
   return (
     <div>
       <Menu mode="horizontal">
@@ -42,11 +43,7 @@ const AppLayout = ({ children }) => {
       <Row gutter={8}>
         {/*  합을 24로 생각 antd grid 참고 */}
         <Col xs={24} md={6}>
-          {isLoggedIn ? (
-            <UserProfile setIsLoggedIn={setIsLoggedIn} />
-          ) : (
-            <LoginForm setIsLoggedIn={setIsLoggedIn} />
-          )}
+          {isLoggedIn ? <UserProfile /> : <LoginForm />}
         </Col>
         <Col xs={24} md={12}>
           {children}
