@@ -7,7 +7,7 @@ import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import useInput from '../hooks/useInput';
 import { useDispatch } from 'react-redux';
-import { loginAction } from '../reducers';
+import { loginAction } from '../reducers/user';
 // useCallback은 함수를 캐싱한다.
 // useMemo는 값을 캐싱해서 함수가 재호출되도 같은 값을로 취급해준다.
 

@@ -13,6 +13,7 @@ const SearchInput = styled(Input.Search)`
 `;
 
 const AppLayout = ({ children }) => {
+  // useSelector 로 reducer에게서 state를 받아 씀.
   const { isLoggedIn } = useSelector((state) => state.user);
   return (
     <div>
