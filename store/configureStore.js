@@ -4,8 +4,21 @@ import { createStore, applyMiddleware, compose } from 'redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import reducer from '../reducers';
 
+import thunkMiddleware from 'redux-thunk';
+
+const loggerMiddleware =
+  ({ dispatch, getState }) =>
+  (next) =>
+  (action) => {
+    // if (typeof action === 'function') {
+    //   return action(dispatch, getState);
+    // }
+    console.log(action);
+    return next(action);
+  };
+
 const configureStore = () => {
-  const middleware = [];
+  const middleware = [thunkMiddleware, loggerMiddleware];
   const enhancer = // 기능을 확장한다.
     process.env.NODE_ENV === 'production'
       ? compose(applyMiddleware(...middleware))
