@@ -1,12 +1,18 @@
 import React, { useCallback, useState } from 'react';
 import PropTypes from 'prop-types';
 import { PlusOutlined } from '@ant-design/icons';
+import ImagesZoom from './ImagesZoom';
 
 const PostImages = ({ images }) => {
   const [showImagesZoom, setShowImagesZoom] = useState(false);
   const onZoom = useCallback(() => {
     setShowImagesZoom(true);
   }, []);
+
+  const onClose = useCallback(() => {
+    setShowImagesZoom(false);
+  }, []);
+
   // image가 0개 일때는 부모 컴포넌트에서 postImage를 불러오지 않게 처리해서 분기 처리 안 해됨.
   if (images.length === 1) {
     return (
@@ -18,6 +24,7 @@ const PostImages = ({ images }) => {
           alt={images[0].src}
           onClick={onZoom}
         />
+        {showImagesZoom && <ImagesZoom images={images} onClose={onClose} />}
       </>
     );
   }
@@ -39,6 +46,7 @@ const PostImages = ({ images }) => {
           src={images[1].src}
           onClick={onZoom}
         />
+        {showImagesZoom && <ImagesZoom images={images} onClose={onClose} />}
       </>
     );
   }
@@ -68,6 +76,7 @@ const PostImages = ({ images }) => {
           {images.length - 1}개의 사진 더 보기
         </div>
       </div>
+      {showImagesZoom && <ImagesZoom images={images} onClose={onClose} />}
     </>
   );
 };

@@ -6,10 +6,27 @@ import UserProfile from './UserProfile';
 import LoginForm from './LoginForm';
 import styled from 'styled-components';
 import { useSelector } from 'react-redux';
+import { createGlobalStyle } from 'styled-components';
 
 // NOTE 재랜더링 방지를 위한 css
 const SearchInput = styled(Input.Search)`
   vertical-align: middle;
+`;
+
+// NOTE gutter 옵션을 줬을때 좌우 스크롤이 발생
+const Global = createGlobalStyle`
+  .ant-row {
+    margin-right: 0 !important;
+    margin-left: 0 !important;
+  }
+  
+  .ant-col:first-child {
+      padding-left: 0 !important;
+  }
+  
+  .ant-col:last-child {
+    padding-right: 0 !important;
+  }
 `;
 
 const AppLayout = ({ children }) => {
@@ -17,6 +34,7 @@ const AppLayout = ({ children }) => {
   const { isLoggedIn } = useSelector((state) => state.user);
   return (
     <div>
+      <Global />
       <Menu mode="horizontal">
         {/* NOTE  a 태그가 아니라 Link에 href */}
         <Menu.Item>
