@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import { Button, Card, Popover, ButtonGroup } from 'antd';
+import { Button, Card, Comment, Popover, Avatar, List } from 'antd';
 import React, { useCallback, useState } from 'react';
 import {
   RetweetOutlined,
@@ -8,11 +8,10 @@ import {
   EllipsisOutlined,
   HeartTwoTone,
 } from '@ant-design/icons';
-import { object } from 'prop-types';
 import { useSelector } from 'react-redux';
-import Avatar from 'antd/lib/avatar/avatar';
 import PropTypes from 'prop-types';
-import PostImages from '../components/PostImages';
+import PostImages from './PostImages';
+import CommentForm from './CommentForm';
 
 // eslint-disable-next-line react/prop-types
 const PostCard = ({ post }) => {
@@ -69,9 +68,25 @@ const PostCard = ({ post }) => {
           description={post.content}
         />
       </Card>
-      {commentFormOpened && <div>댓글 부분</div>}
-      {/* <CommentForm />
-      <Comments /> */}
+      {commentFormOpened && (
+        <>
+          <CommentForm post={post} />
+          <List
+            header={`${post.Comments.length}개의 덧글`}
+            itemLayout="horizontal"
+            dataSource={post.Comments}
+            renderItem={(item) => (
+              <li>
+                <Comment
+                  author={item.User.nickname}
+                  avatar={<Avatar>{item.User.nickname[0]}</Avatar>}
+                  content={item.content}
+                />
+              </li>
+            )}
+          />
+        </>
+      )}
     </div>
   );
 };
@@ -82,8 +97,8 @@ PostCard.propTypes = {
     User: PropTypes.object,
     content: PropTypes.string,
     createAt: PropTypes.object,
-    Comments: PropTypes.arrayOf(PropTypes.object),
-    Images: PropTypes.arrayOf(PropTypes, object),
+    Comments: PropTypes.arrayOf(PropTypes.any),
+    Images: PropTypes.arrayOf(PropTypes.any),
   }).isRequired,
 };
 

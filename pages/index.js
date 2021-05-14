@@ -2,8 +2,8 @@ import React from 'react'; // 없어도 문제 없긴 함.
 import Head from 'next/head';
 import AppLayout from '../components/AppLayout';
 import { useSelector } from 'react-redux';
-import PostCard from './PostCard';
 import PostForm from '../components/PostForm';
+import PostCard from '../components/PostCard';
 
 // NOTE next가 pages 폴더에서 자동으로 찾아줌.
 const Home = () => {

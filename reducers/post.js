@@ -19,8 +19,23 @@ export const initialState = {
           src: 'https://gimg.gilbut.co.kr/book/BN001998/rn_view_BN001998.jpg',
         },
       ],
+      Comments: [
+        {
+          User: {
+            nickname: 'nero',
+          },
+          content: '우와 개정판이 나왔군요~',
+        },
+        {
+          User: {
+            nickname: 'hero',
+          },
+          content: '얼른 사고싶어요~',
+        },
+      ],
     },
   ],
+
   imagePaths: [],
   postAdded: false,
 };
