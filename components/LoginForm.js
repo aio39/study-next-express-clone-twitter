@@ -6,8 +6,8 @@ import React, { useCallback, useMemo, useState } from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import useInput from '../hooks/useInput';
-import { useDispatch } from 'react-redux';
-import { loginAction } from '../reducers/user';
+import { useDispatch, useSelector } from 'react-redux';
+import { loginRequestAction } from '../reducers/user';
 // useCallback은 함수를 캐싱한다.
 // useMemo는 값을 캐싱해서 함수가 재호출되도 같은 값을로 취급해준다.
 
@@ -22,7 +22,7 @@ const FormWrapper = styled(Form)`
 
 const LoginForm = () => {
   const dispatch = useDispatch();
-
+  const { isLoggingIn } = useSelector((state) => state.user);
   const [id, onChangeId] = useInput('');
   const [password, onChangePassword] = useInput('');
 
@@ -37,7 +37,7 @@ const LoginForm = () => {
   const onSubmitForm = useCallback(() => {
     // NOTE e.preventDefault() antd에 기본으로 적용되어있음.
     console.log(id, password);
-    dispatch(loginAction({ id, password }));
+    dispatch(loginRequestAction({ id, password }));
   }, [id, password]);
   //   리턴 부분에서 다른 부분만  버츄얼돔으로 비교해서 다시 랜더링
   // state가 아닌 값은 참조값이라면 항상 다른 값으로 침.
@@ -61,7 +61,7 @@ const LoginForm = () => {
         ></Input>
       </div>
       <ButtonWrapper style={{ marginTop: 10 }}>
-        <Button type="primary" htmlType="submit" loading={false}>
+        <Button type="primary" htmlType="submit" loading={isLoggingIn}>
           로그인
         </Button>
         <Link href="/singup">
