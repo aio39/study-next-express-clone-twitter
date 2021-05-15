@@ -5,7 +5,7 @@ import { logoutRequestAction } from '../reducers/user';
 
 const UserProfile = () => {
   const dispatch = useDispatch();
-  const { me, isLoggingOut } = useSelector((state) => state.user);
+  const { me, logOutLoading } = useSelector((state) => state.user);
   const onLogOut = useCallback(() => {
     dispatch(logoutRequestAction());
   }, []);
@@ -15,13 +15,14 @@ const UserProfile = () => {
       actions={[
         //  NOTE jsx의 배열에서는 key가 필수
         <div key="twit">
-          twit <br />0
+          짹쨱 <br /> {me.Posts.length}
         </div>,
         <div key="followings">
-          twit <br />0
+          팔로잉 <br /> {me.Followings.length}
         </div>,
         <div key="followers">
-          twit <br />0
+          팔로워 <br />
+          {me.Followers.length}
         </div>,
       ]}
     >
@@ -29,7 +30,7 @@ const UserProfile = () => {
         avatar={<Avatar>{me.nickname[0]}</Avatar>}
         title={me.nickname}
       ></Card.Meta>
-      <Button onClick={onLogOut} loading={isLoggingOut}>
+      <Button onClick={onLogOut} loading={logOutLoading}>
         Log Out
       </Button>
     </Card>

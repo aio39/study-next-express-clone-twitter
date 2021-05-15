@@ -1,14 +1,33 @@
 import { Button, Input, Form } from 'antd';
-import React, { useCallback } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import useInput from '../hooks/useInput';
 import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
+import { ADD_COMMENT_REQUEST } from '../reducers/post';
+import { useDispatch } from 'react-redux';
 //  NOTE 개시글의 ID가 필요함.
 const CommentForm = ({ post }) => {
+  const dispatch = useDispatch();
   const id = useSelector((state) => state.user.me?.id);
-  const [commentText, onChangeCommentText] = useInput('');
+  const { addCommentDone } = useSelector((state) => state.post);
+  const [commentText, onChangeCommentText, setCommentText] = useInput('');
+
+  useEffect(() => {
+    if (addCommentDone) {
+      setCommentText('');
+    }
+  }, [addCommentDone]);
+
   const onSubmitComment = useCallback(() => {
     console.log(post.id, commentText);
+    dispatch({
+      type: ADD_COMMENT_REQUEST,
+      data: {
+        content: commentText,
+        postId: post.id,
+        userId: id,
+      },
+    });
   }, [commentText]);
   return (
     <Form onFinish={onSubmitComment}>

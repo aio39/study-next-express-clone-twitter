@@ -22,8 +22,8 @@ const FormWrapper = styled(Form)`
 
 const LoginForm = () => {
   const dispatch = useDispatch();
-  const { isLoggingIn } = useSelector((state) => state.user);
-  const [id, onChangeId] = useInput('');
+  const { logInLoading } = useSelector((state) => state.user);
+  const [email, onChangeEmail] = useInput('');
   const [password, onChangePassword] = useInput('');
 
   //  TODO logInerror
@@ -38,18 +38,23 @@ const LoginForm = () => {
 
   const onSubmitForm = useCallback(() => {
     // NOTE e.preventDefault() antd에 기본으로 적용되어있음.
-    console.log(id, password);
-    dispatch(loginRequestAction({ id, password }));
-  }, [id, password]);
+    console.log(email, password);
+    dispatch(loginRequestAction({ email, password }));
+  }, [email, password]);
   //   리턴 부분에서 다른 부분만  버츄얼돔으로 비교해서 다시 랜더링
   // state가 아닌 값은 참조값이라면 항상 다른 값으로 침.
   return (
     //   NOTE Form의 onFinish
     <FormWrapper onFinish={onSubmitForm}>
       <div>
-        <label htmlFor="user-id">아이디</label>
+        <label htmlFor="user-email">이메일</label>
         <br />
-        <Input name="user_id" value={id} onChange={onChangeId} required></Input>
+        <Input
+          name="user_email"
+          value={email}
+          onChange={onChangeEmail}
+          required
+        ></Input>
       </div>
       <div>
         <label htmlFor="user-password">비밀번호</label>
@@ -63,7 +68,7 @@ const LoginForm = () => {
         ></Input>
       </div>
       <ButtonWrapper style={{ marginTop: 10 }}>
-        <Button type="primary" htmlType="submit" loading={isLoggingIn}>
+        <Button type="primary" htmlType="submit" loading={logInLoading}>
           로그인
         </Button>
         <Link href="/singup">
