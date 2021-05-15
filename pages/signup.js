@@ -13,6 +13,9 @@ const ErrorMessage = styled.div`
 `;
 
 const Signup = () => {
+  // TODO useEffect
+  //  TODO Router replace로 교체
+
   const [id, onChangeId] = useInput('');
   const [nickname, onChangeNickname] = useInput('');
   const [password, onChangePassword] = useInput('');

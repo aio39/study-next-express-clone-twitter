@@ -26,6 +26,8 @@ const LoginForm = () => {
   const [id, onChangeId] = useInput('');
   const [password, onChangePassword] = useInput('');
 
+  //  TODO logInerror
+
   // NOTE  styled components를  사용하지 않는다면 useMemo로 값을 캐싱 하면 된다.
   //   const style = useMemo(
   //     () => ({
