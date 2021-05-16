@@ -1,15 +1,17 @@
 import { Button, Input, Form } from 'antd';
 import React, { useCallback, useEffect } from 'react';
-import useInput from '../hooks/useInput';
 import PropTypes from 'prop-types';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { ADD_COMMENT_REQUEST } from '../reducers/post';
-import { useDispatch } from 'react-redux';
+
+import useInput from '../hooks/useInput';
 //  NOTE 개시글의 ID가 필요함.
 const CommentForm = ({ post }) => {
   const dispatch = useDispatch();
   const id = useSelector((state) => state.user.me?.id);
-  const { addCommentDone } = useSelector((state) => state.post);
+  const { addCommentDone, addCommentLoading } = useSelector(
+    (state) => state.post,
+  );
   const [commentText, onChangeCommentText, setCommentText] = useInput('');
 
   useEffect(() => {
@@ -40,8 +42,9 @@ const CommentForm = ({ post }) => {
         <Button
           type="primary"
           htmlType="submit"
-          style={{ position: 'absolute', right: 0, bottom: -40 }}
+          style={{ position: 'absolute', right: 0, bottom: -40, zIndex: 1 }}
           onClick={onSubmitComment}
+          loading={addCommentLoading}
         >
           삐약
         </Button>

@@ -8,6 +8,10 @@ export const initialState = {
   singUpLoading: false,
   singUpDone: false,
   singUpFailure: null,
+  changeNicknameLoading: false,
+  changeNicknameDone: false,
+  changeNicknameFailure: null,
+
   me: null,
   signUpData: {},
   loginData: {},
@@ -44,6 +48,10 @@ export const SIGN_UP_REQUEST = 'SIGN_UP_REQUEST';
 export const SIGN_UP_SUCCESS = 'SIGN_UP_SUCCESS';
 export const SIGN_UP_FAILURE = 'SIGN_UP_FAILURE';
 
+export const CHANGE_NICKNAME_REQUEST = 'CHANGE_NICKNAME_REQUEST';
+export const CHANGE_NICKNAME_SUCCESS = 'CHANGE_NICKNAME_SUCCESS';
+export const CHANGE_NICKNAME_FAILURE = 'CHANGE_NICKNAME_FAILURE';
+
 export const FOLLOW_REQUEST = 'FOLLOW_REQUEST';
 export const FOLLOW_SUCCESS = 'FOLLOW_SUCCESS';
 export const FOLLOW_FAILURE = 'FOLLOW_FAILURE';
@@ -52,28 +60,32 @@ export const UNFOLLOW_REQUEST = 'UNFOLLOW_REQUEST';
 export const UNFOLLOW_SUCCESS = 'UNFOLLOW_SUCCESS';
 export const UNFOLLOW_FAILURE = 'UNFOLLOW_FAILURE';
 
-export const loginRequestAction = (data) => {
-  return {
-    type: LOG_IN_REQUEST,
-    data,
-  };
-};
+export const loginRequestAction = (data) => ({
+  type: LOG_IN_REQUEST,
+  data,
+});
 
 const dummyUser = (data) => ({
   ...data,
   nickname: 'aio',
   id: 1,
-  Posts: [],
-  Followings: [],
-  Followers: [],
+  Posts: [{ id: 1 }],
+  Followings: [
+    { nickname: '부기초' },
+    { nickname: 'Chanho Lee' },
+    { nickname: 'neue zeal' },
+  ],
+  Followers: [
+    { nickname: '부기초' },
+    { nickname: 'Chanho Lee' },
+    { nickname: 'neue zeal' },
+  ],
 });
 
-export const logoutRequestAction = (data) => {
-  return {
-    type: LOG_OUT_REQUEST,
-    data,
-  };
-};
+export const logoutRequestAction = (data) => ({
+  type: LOG_OUT_REQUEST,
+  data,
+});
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
@@ -133,10 +145,28 @@ const reducer = (state = initialState, action) => {
     case SIGN_UP_FAILURE:
       return {
         ...state,
-        singUpLoading: false,
-        singUpError: action.error,
+        changeNicknameLoading: false,
+        changeNicknameError: action.error,
       };
-
+    case CHANGE_NICKNAME_REQUEST:
+      return {
+        ...state,
+        changeNicknameLoading: true,
+        changeNicknameDone: false,
+        changeNicknameError: null,
+      };
+    case CHANGE_NICKNAME_SUCCESS:
+      return {
+        ...state,
+        changeNicknameLoading: false,
+        changeNicknameDone: true,
+      };
+    case CHANGE_NICKNAME_FAILURE:
+      return {
+        ...state,
+        changeNicknameLoading: false,
+        changeNicknameError: action.error,
+      };
     default:
       return state;
   }
